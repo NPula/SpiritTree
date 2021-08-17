@@ -8,6 +8,8 @@ public class CharacterController : PhysicsObject
     [SerializeField] private float maxSpeed = 1;
     [SerializeField] private float jumpPower = 1;
 
+    public List<Interactable> Targets;
+
     void Update()
     {
 
@@ -17,6 +19,17 @@ public class CharacterController : PhysicsObject
         if (Input.GetButtonDown("Jump") && grounded)
         {
             velocity.y = jumpPower;
+        }
+
+        if (Targets.Capacity > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                foreach (Interactable i in Targets)
+                {
+                    i.Interact();
+                }
+            }
         }
     }
 
