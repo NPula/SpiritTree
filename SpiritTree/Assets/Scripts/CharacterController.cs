@@ -9,7 +9,7 @@ public class CharacterController : PhysicsObject
     [SerializeField] private float maxSpeed = 1;
     [SerializeField] private float jumpPower = 1;
 
-    public List<Interactable> Targets;
+    [HideInInspector] public List<Interactable> Targets;
 
     public int soulsCollected;
 
@@ -18,14 +18,13 @@ public class CharacterController : PhysicsObject
 
     void Start()
     {
-        //soulText = GameObject.Find("Soul").GetComponent<Text>();
         UpdateUI();
     }
 
     void Update()
     {
 
-        targetVelocity = new Vector2(Input.GetAxis("Horizontal") * maxSpeed, 0);
+        targetVelocity = new Vector2(Input.GetAxisRaw("Horizontal") * maxSpeed, 0);
 
         // if player presses "jump" and were grounded set velocity to jump power value 
         if (Input.GetButtonDown("Jump") && grounded)

@@ -1004,6 +1004,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 242183437743739162, guid: 738ba723aed24e1498e4b3944dc5e09a,
         type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 739ae93c8f086754b92ccc7ff3f39b82, type: 2}
+    - target: {fileID: 242183437743739162, guid: 738ba723aed24e1498e4b3944dc5e09a,
+        type: 3}
       propertyPath: m_Offset.y
       value: 0.004175514
       objectReference: {fileID: 0}
@@ -1011,6 +1016,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 242183437743739166, guid: 738ba723aed24e1498e4b3944dc5e09a,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 242183437743739167, guid: 738ba723aed24e1498e4b3944dc5e09a,
         type: 3}
@@ -1026,6 +1036,11 @@ PrefabInstance:
         type: 3}
       propertyPath: soulsCollected
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 242183437743739167, guid: 738ba723aed24e1498e4b3944dc5e09a,
+        type: 3}
+      propertyPath: gravityModifier
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 738ba723aed24e1498e4b3944dc5e09a, type: 3}
