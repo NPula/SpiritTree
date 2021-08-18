@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterController : PhysicsObject
 {
@@ -9,6 +10,17 @@ public class CharacterController : PhysicsObject
     [SerializeField] private float jumpPower = 1;
 
     public List<Interactable> Targets;
+
+    public int soulsCollected;
+
+    public Text soulText;
+
+
+    void Start()
+    {
+        //soulText = GameObject.Find("Soul").GetComponent<Text>();
+        UpdateUI();
+    }
 
     void Update()
     {
@@ -33,5 +45,11 @@ public class CharacterController : PhysicsObject
         }
     }
 
+    public void UpdateUI()
+    {
+        soulText.text = soulsCollected.ToString();
+    }
+
 
 }
+
