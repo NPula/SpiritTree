@@ -8,10 +8,12 @@ public class Collectables : MonoBehaviour
     enum ItemType {soul, health, other}
     [SerializeField] private ItemType itemType;
 
+    CharacterController characterController;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        /*
         if (itemType == ItemType.soul)
         {
             Debug.Log("Im a Soul");
@@ -28,6 +30,8 @@ public class Collectables : MonoBehaviour
         {
             Debug.Log("Im none of them");
         }
+        */
+        characterController = GameObject.Find("Player").GetComponent<CharacterController>();
 
     }
 
@@ -41,8 +45,28 @@ public class Collectables : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
-            GameObject.Find("Player").GetComponent<CharacterController>().soulsCollected += 1;
-            GameObject.Find("Player").GetComponent<CharacterController>().UpdateUI();
+            if (itemType == ItemType.soul)
+            {
+                characterController.soulsCollected += 1;
+            }
+            else if (itemType == ItemType.health)
+            {
+                if(characterController.health < 100) 
+                {
+                    characterController.health += 1;
+                }
+                
+            }
+            else if (itemType == ItemType.other)
+            {
+               
+            }
+            else
+            {
+
+            }
+
+            characterController.UpdateUI();
             Destroy(gameObject);
 
         }

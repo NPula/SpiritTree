@@ -12,16 +12,21 @@ public class CharacterController : PhysicsObject
     [HideInInspector] public List<Interactable> Targets;
 
     [SerializeField] private CharacterCombat m_playerCombat;
-    public int soulsCollected;
-
-    public Text soulText;
     
+    public int soulsCollected;
+    public Text soulText;
+    public int health = 100;
+    private int maxHealth = 100;
+    public Image healthBar;
+    private Vector2 healthBarOriginalSize;
+
     public enum DirectionFacing { RIGHT = 1, LEFT = -1}
     [HideInInspector] public DirectionFacing direction;
 
     void Start()
     {
         direction = DirectionFacing.RIGHT;
+        healthBarOriginalSize = healthBar.rectTransform.sizeDelta;
         UpdateUI();
     }
 
@@ -66,11 +71,19 @@ public class CharacterController : PhysicsObject
                 m_playerCombat.Attack();
             }
         }
+
+       // UpdateUI();
     }
 
     public void UpdateUI()
     {
         soulText.text = soulsCollected.ToString();
+
+        healthBar.rectTransform.sizeDelta = new Vector2(healthBarOriginalSize.x * ((float)health / (float)maxHealth), healthBar.rectTransform.sizeDelta.y);
+
+        
+
+       // healthBar.rectTransform.sizeDelta 
     }
 
 
