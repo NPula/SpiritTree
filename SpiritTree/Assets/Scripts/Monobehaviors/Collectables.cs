@@ -5,32 +5,20 @@ using UnityEngine;
 public class Collectables : MonoBehaviour
 {
 
-    enum ItemType {soul, health, other}
+    enum ItemType {soul, health, key}
     [SerializeField] private ItemType itemType;
 
     CharacterController characterController;
 
+    [SerializeField] private string inventoryStringName;
+    [SerializeField] private Sprite inventorySprite;
+
+    public Dictionary<string, Sprite> inventory = new Dictionary<string, Sprite>();
+
     // Start is called before the first frame update
     void Start()
     {
-        /*
-        if (itemType == ItemType.soul)
-        {
-            Debug.Log("Im a Soul");
-        }
-        else if(itemType == ItemType.health)
-        {
-            Debug.Log("Im Health");
-        }
-        else if (itemType == ItemType.other)
-        {
-            Debug.Log("Im other");
-        }
-        else
-        {
-            Debug.Log("Im none of them");
-        }
-        */
+    
         characterController = GameObject.Find("Player").GetComponent<CharacterController>();
 
     }
@@ -57,9 +45,9 @@ public class Collectables : MonoBehaviour
                 }
                 
             }
-            else if (itemType == ItemType.other)
+            else if (itemType == ItemType.key)
             {
-               
+                characterController.AddInventoryItem(inventoryStringName, inventorySprite);
             }
             else
             {
@@ -71,4 +59,7 @@ public class Collectables : MonoBehaviour
 
         }
     }
+
+
+
 }

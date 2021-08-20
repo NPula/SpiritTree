@@ -13,12 +13,19 @@ public class CharacterController : PhysicsObject
 
     [SerializeField] private CharacterCombat m_playerCombat;
     
+    //Soul
     public int soulsCollected;
     public Text soulText;
+    //Health
     public int health = 100;
     private int maxHealth = 100;
     public Image healthBar;
     private Vector2 healthBarOriginalSize;
+    //Key
+    public Dictionary<string, Sprite> inventory = new Dictionary<string, Sprite>();
+    public Sprite keySprite;
+    public Image inventoryItemImage;
+    public Sprite inventroyItemblank;
 
     public enum DirectionFacing { RIGHT = 1, LEFT = -1}
     [HideInInspector] public DirectionFacing direction;
@@ -84,6 +91,18 @@ public class CharacterController : PhysicsObject
         
 
        // healthBar.rectTransform.sizeDelta 
+    }
+
+    public void AddInventoryItem(string inventoryName, Sprite Image)
+    {
+        inventory.Add(inventoryName, Image);
+        inventoryItemImage.sprite = inventory[inventoryName];
+    }
+
+    public void RemoveInventoryItem(string inventoryName)
+    {
+        inventory.Remove(inventoryName);
+        inventoryItemImage.sprite = inventroyItemblank;
     }
 
 
