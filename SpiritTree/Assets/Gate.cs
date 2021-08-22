@@ -28,12 +28,12 @@ public class Gate : MonoBehaviour
             {
                 GameObject.Find("Player").GetComponent<CharacterController>().RemoveInventoryItem(requiredInventoryItemString);
                 Destroy(gameObject);
-                keyRequiredText.SetActive(false);
+                //keyRequiredText.SetActive(false);
             }
 
             else
             {
-                keyRequiredText.SetActive(true);
+                //keyRequiredText.SetActive(true);
             }
         }
     }

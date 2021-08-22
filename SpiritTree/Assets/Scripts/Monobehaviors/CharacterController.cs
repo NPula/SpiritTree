@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CharacterController : PhysicsObject
 {
@@ -29,6 +30,16 @@ public class CharacterController : PhysicsObject
 
     public enum DirectionFacing { RIGHT = 1, LEFT = -1}
     [HideInInspector] public DirectionFacing direction;
+
+    private static CharacterController instance;
+    public static CharacterController Instance
+    {
+        get
+        {
+            if (instance == null) instance = GameObject.FindObjectOfType<CharacterController>();
+            return instance;
+        }
+    }
 
     void Start()
     {
@@ -79,7 +90,13 @@ public class CharacterController : PhysicsObject
             }
         }
 
-       // UpdateUI();
+        // UpdateUI();
+
+        if (health <= 0)
+        {
+            Die();
+        }
+
     }
 
     public void UpdateUI()
@@ -103,6 +120,11 @@ public class CharacterController : PhysicsObject
     {
         inventory.Remove(inventoryName);
         inventoryItemImage.sprite = inventroyItemblank;
+    }
+
+    public void Die()
+    {
+        SceneManager.LoadScene("AndrewSafeSpace");
     }
 
 

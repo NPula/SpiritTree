@@ -41,7 +41,7 @@ public class Collectables : MonoBehaviour
             {
                 if(characterController.health < 100) 
                 {
-                    characterController.health += 1;
+                    characterController.health += 25;
                 }
                 
             }
