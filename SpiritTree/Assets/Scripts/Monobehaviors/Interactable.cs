@@ -5,7 +5,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     protected Transform player;
-    protected CharacterController playerController;
+    protected PlayerController playerController;
 
     [SerializeField] protected float m_radius = 1f;
     //public float Radius { get; protected set; }
@@ -17,7 +17,7 @@ public class Interactable : MonoBehaviour
     {
         //player = GameObject.Find("Player").transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        playerController = player.GetComponent<CharacterController>();
+        playerController = player.GetComponent<PlayerController>();
     }
 
     protected virtual void Update()

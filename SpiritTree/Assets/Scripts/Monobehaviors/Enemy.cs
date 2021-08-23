@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : PhysicsObject
+public class Enemy : MonoBehaviour
 {
 
     [SerializeField] private float maxSpeed;
@@ -34,7 +34,10 @@ public class Enemy : PhysicsObject
     // Update is called once per frame
     void Update()
     {
-        targetVelocity = new Vector2(maxSpeed * direction, 0);
+        //Vector3 targetVelocity = transform.GetComponent<Rigidbody2D>().velocity;
+        Vector3 targetVelocity = new Vector2(maxSpeed * direction * Time.deltaTime, 0);
+
+        transform.Translate(targetVelocity);
 
         // Check for right ledge
         rightLedgeRaycastHit = Physics2D.Raycast(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y + rayCastOffset.y), Vector2.down, rayCastLength);
@@ -96,18 +99,18 @@ public class Enemy : PhysicsObject
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject == CharacterController.Instance.gameObject)
+        if (col.gameObject.CompareTag("Player"))
         {
             //Debug.Log("Hurt the player!");
-            CharacterController.Instance.health -= attackPower;
-            CharacterController.Instance.UpdateUI();
+            col.gameObject.GetComponent<PlayerController>().health -= attackPower;
+            col.gameObject.GetComponent<PlayerController>().UpdateUI();
         }
 
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D col)
     {
-        if (collision.gameObject == CharacterController.Instance.gameObject)
+        if (col.gameObject.CompareTag("Player"))
         {
             StartCoroutine(RecieveAttack());
         }

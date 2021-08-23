@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &125534549704959806
 Transform:
   m_ObjectHideFlags: 0
@@ -95,10 +95,10 @@ GameObject:
   - component: {fileID: 125534550179097202}
   - component: {fileID: 125534550179097200}
   - component: {fileID: 125534550179097204}
-  - component: {fileID: 125534550179097205}
-  - component: {fileID: 125534550179097201}
   - component: {fileID: 125534550491610856}
   - component: {fileID: 125534550491610857}
+  - component: {fileID: 247905462}
+  - component: {fileID: 247905463}
   m_Layer: 6
   m_Name: Player 1
   m_TagString: Player
@@ -161,9 +161,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7,
+  m_Sprite: {fileID: 2131035083623595277, guid: cb5256b4aa3498c4ab0e9bee1a6ecdcb,
     type: 3}
-  m_Color: {r: 0.30655882, g: 0.4528302, b: 0.24093984, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -182,11 +182,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 125534550179097207}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 739ae93c8f086754b92ccc7ff3f39b82, type: 2}
-  m_IsTrigger: 0
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.004175514}
+  m_Offset: {x: -0.01113835, y: 0.004175514}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -197,7 +197,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.991649}
+  m_Size: {x: 0.39852804, y: 0.991649}
   m_EdgeRadius: 0
 --- !u!50 &125534550179097204
 Rigidbody2D:
@@ -219,42 +219,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &125534550179097205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 125534550179097207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5858fa74947c7f34d8488239554b9a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minGroundNormalY: 0.65
-  gravityModifier: 1.5
-  maxSpeed: 8
-  jumpPower: 9
-  Targets: []
-  m_playerCombat: {fileID: 125534550491610857}
-  soulsCollected: 0
-  soulText: {fileID: 0}
-  direction: 0
---- !u!114 &125534550179097201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 125534550179097207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bb19cd452214cd42b13f6873313785b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minGroundNormalY: 0.65
-  gravityModifier: 1
+  m_Constraints: 7
 --- !u!114 &125534550491610856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,3 +253,91 @@ MonoBehaviour:
   m_weapon: {fileID: 6048538030284136509, guid: 19e477bf8257be34cbf9b6ae1f1efe7f,
     type: 3}
   m_attackRange: 1
+--- !u!114 &247905462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125534550179097207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2c9c7710a9a8244f86e57c7efe3106a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: -25
+  runSpeed: 8
+  groundDamping: 20
+  inAirDamping: 5
+  jumpHeight: 3
+  Targets: []
+  m_playerCombat: {fileID: 125534550491610857}
+  soulsCollected: 0
+  soulText: {fileID: 0}
+  health: 100
+  healthBar: {fileID: 0}
+  keySprite: {fileID: -9025334715021319761, guid: 2ed6cfe674d091c4aa5df1eddbd41790,
+    type: 3}
+  inventoryItemImage: {fileID: 0}
+  inventroyItemblank: {fileID: 6085889122421479109, guid: 2ed6cfe674d091c4aa5df1eddbd41790,
+    type: 3}
+--- !u!114 &247905463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125534550179097207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c3029a5af25d347b0925d9b04ec559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreOneWayPlatformsThisFrame: 0
+  _skinWidth: 0.02
+  platformMask:
+    serializedVersion: 2
+    m_Bits: 1
+  triggerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  oneWayPlatformMask:
+    serializedVersion: 2
+    m_Bits: 256
+  slopeLimit: 30
+  jumpingThreshold: 0.07
+  slopeSpeedMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -90
+      value: 1.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 90
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  totalHorizontalRays: 8
+  totalVerticalRays: 4

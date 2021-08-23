@@ -47,6 +47,8 @@ public class CharacterCombat : MonoBehaviour
                 m_weaponInfo[i] = info;
             }
         }
+
+        
     }
 
     public void Attack()
@@ -60,6 +62,7 @@ public class CharacterCombat : MonoBehaviour
 
         foreach(Collider2D e in enemiesHit)
         {
+            Debug.Log(e.transform.name + ": " + e.transform.position);
             Debug.Log("Creating tmp Weapon.");
             // Temporary attack animation
             GameObject weaponInstance = Instantiate(m_weapon, transform.position, Quaternion.identity);
@@ -84,6 +87,7 @@ public class CharacterCombat : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position, m_attackRange);
+        Vector3 offset = Vector3.right * (1f * transform.localScale.x);
+        Gizmos.DrawWireSphere(transform.position + offset, m_attackRange);
     }
 }

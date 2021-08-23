@@ -8,7 +8,7 @@ public class Collectables : MonoBehaviour
     enum ItemType {soul, health, key}
     [SerializeField] private ItemType itemType;
 
-    CharacterController characterController;
+    PlayerController playerController;
 
     [SerializeField] private string inventoryStringName;
     [SerializeField] private Sprite inventorySprite;
@@ -18,46 +18,75 @@ public class Collectables : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    
-        characterController = GameObject.Find("Player").GetComponent<CharacterController>();
+
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        //playerController.Controller.onTriggerEnterEvent += OnPlayerCollision;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
+
+    /*
+    private void OnPlayerCollision(Collider2D collision)
+    {
+        if (itemType == ItemType.soul)
+        {
+            playerController.soulsCollected += 1;
+        }
+        else if (itemType == ItemType.health)
+        {
+            if (playerController.health < 100)
+            {
+                playerController.health += 25;
+            }
+
+        }
+        else if (itemType == ItemType.key)
+        {
+            playerController.AddInventoryItem(inventoryStringName, inventorySprite);
+        }
+        else
+        {
+
+        }
+
+        playerController.UpdateUI();
+        Destroy(gameObject);  
+    } */
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player")
+        Debug.Log("Trigger: " + collision.tag);
+        if (collision.CompareTag("Player"))
         {
             if (itemType == ItemType.soul)
             {
-                characterController.soulsCollected += 1;
+                playerController.soulsCollected += 1;
             }
             else if (itemType == ItemType.health)
             {
-                if(characterController.health < 100) 
+                if(playerController.health < 100) 
                 {
-                    characterController.health += 25;
+                    playerController.health += 25;
                 }
                 
             }
             else if (itemType == ItemType.key)
             {
-                characterController.AddInventoryItem(inventoryStringName, inventorySprite);
+                playerController.AddInventoryItem(inventoryStringName, inventorySprite);
             }
             else
             {
 
             }
 
-            characterController.UpdateUI();
+            playerController.UpdateUI();
             Destroy(gameObject);
-
         }
+        
     }
 
 
