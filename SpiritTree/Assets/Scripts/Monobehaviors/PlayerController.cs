@@ -75,11 +75,11 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         Controller = GetComponent<CharacterController2D>();
-
         // listen to some events. (Leaving this here in case we need events later. Probably will)
         //_controller.onControllerCollidedEvent += onControllerCollider;
         //_controller.onTriggerEnterEvent += onTriggerEnterEvent;
         //_controller.onTriggerExitEvent += onTriggerExitEvent;
+
     }
 
 
