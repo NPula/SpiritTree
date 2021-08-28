@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour
     public Image inventoryItemImage;
     public Sprite inventroyItemblank;
 
+    public Inventory playerInventory;
+
 
     #region Old Code
     //private static CharacterController2D instance;

@@ -8,6 +8,7 @@ public class Item : Interactable
     {
         base.Interact();
 
+
         Destroy(gameObject);
     }
 }

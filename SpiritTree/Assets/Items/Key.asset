@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa946cc6168e76e45aa085f75f5c95f9, type: 3}
+  m_Name: Key
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 6849894188398478545, guid: edce2a5a735fad34aa83aedf49cd64cd,
+    type: 3}
+  itemName: Key
+  maxAmountPerSlot: 5
+  amount: 0
