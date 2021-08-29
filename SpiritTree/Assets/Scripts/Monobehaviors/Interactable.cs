@@ -22,7 +22,7 @@ public class Interactable : MonoBehaviour
 
     protected virtual void Update()
     {
-        IsInteractable = IsPlayerInRadius(player);
+        IsInteractable = IsPlayerInRadius(player, m_radius);
         if (IsInteractable)
         {
             if (!playerController.Targets.Contains(this))
@@ -43,7 +43,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact()
     {
-        Debug.Log("Interacting");
+        //Debug.Log("Interacting");
     }
 
     public virtual void StopInteracting()
@@ -54,10 +54,11 @@ public class Interactable : MonoBehaviour
 
     public virtual bool MoreToDo() { return false; }
 
-    public bool IsPlayerInRadius(Transform player)
+    public bool IsPlayerInRadius(Transform player, float radius)
     {
-        float distance = Mathf.Abs((player.position - transform.position).magnitude);
-        return (distance <= m_radius);
+        // Casting to vector2 so that we ignore the z-distance (Kinda screws things up). 
+        float distance = Mathf.Abs(((Vector2)player.position - (Vector2)transform.position).magnitude);
+        return (distance <= radius);
     }
 
     public void SetPlayerPosition(Transform position)

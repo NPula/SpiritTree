@@ -2,35 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectables : MonoBehaviour
+public class Collectables : Interactable
 {
 
     enum ItemType {soul, health, key}
     [SerializeField] private ItemType itemType;
-
-    PlayerController playerController;
 
     [SerializeField] private string inventoryStringName;
     [SerializeField] private Sprite inventorySprite;
 
     public Dictionary<string, Sprite> inventory = new Dictionary<string, Sprite>();
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float m_moveTowardsEntitySpeed = 1f;
+    [SerializeField] private float m_collectDistance = 1f;
+
+    private Vector3 velocity = Vector3.zero;
+
+    public override void Interact()
     {
+        base.Interact();
 
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        //playerController.Controller.onTriggerEnterEvent += OnPlayerCollision;
+        Vector3 position = Vector3.SmoothDamp(transform.position, playerController.transform.position,ref velocity, m_moveTowardsEntitySpeed);
+        transform.position = position;
 
+        if (IsPlayerInRadius(playerController.transform, m_collectDistance))
+        {
+            CollectObject();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    /*
-    private void OnPlayerCollision(Collider2D collision)
+    private void CollectObject()
     {
         if (itemType == ItemType.soul)
         {
@@ -48,15 +49,12 @@ public class Collectables : MonoBehaviour
         {
             playerController.AddInventoryItem(inventoryStringName, inventorySprite);
         }
-        else
-        {
-
-        }
 
         playerController.UpdateUI();
-        Destroy(gameObject);  
-    } */
+        Destroy(gameObject);
+    }
 
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger: " + collision.tag);
@@ -88,7 +86,5 @@ public class Collectables : MonoBehaviour
         }
         
     }
-
-
-
+    */
 }

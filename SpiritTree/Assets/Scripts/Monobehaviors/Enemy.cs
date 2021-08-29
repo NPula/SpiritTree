@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    // movement config
+    public float gravity = -25f;
+    public float runSpeed = 8f;
+    public float groundDamping = 20f; // how fast do we change direction? higher means faster
+    //public float inAirDamping = 5f;
+    //public float jumpHeight = 3f;
+    private CharacterController2D m_controller;
+    private Vector3 m_velocity;
 
     [SerializeField] private float maxSpeed;
     private RaycastHit2D rightLedgeRaycastHit;
@@ -28,16 +36,22 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        m_controller = GetComponent<CharacterController2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Vector3 targetVelocity = transform.GetComponent<Rigidbody2D>().velocity;
-        Vector3 targetVelocity = new Vector2(maxSpeed * direction * Time.deltaTime, 0);
+        m_velocity.y += gravity * Time.deltaTime;
 
-        transform.Translate(targetVelocity);
+        //Vector3 targetVelocity = transform.GetComponent<Rigidbody2D>().velocity;
+        //Vector3 targetVelocity = new Vector2(maxSpeed * direction * Time.deltaTime, 0);
+        m_velocity.x = runSpeed * direction;
+        m_controller.move(m_velocity * Time.deltaTime);
+
+        // grab our current _velocity to use as a base for all calculations
+        m_velocity = m_controller.velocity;
+        //transform.Translate(targetVelocity);
 
         // Check for right ledge
         rightLedgeRaycastHit = Physics2D.Raycast(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y + rayCastOffset.y), Vector2.down, rayCastLength);
@@ -86,29 +100,31 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (targetVelocity.x < -.01)
+        if (m_velocity.x < -.01)
         {
             transform.localScale = new Vector2(-1, 1);
         }
-        else if (targetVelocity.x > .01)
+        else if (m_velocity.x > .01)
         {
             transform.localScale = new Vector2(1, 1);
         }
 
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("Hurt the player!");
-            col.gameObject.GetComponent<PlayerController>().health -= attackPower;
-            col.gameObject.GetComponent<PlayerController>().UpdateUI();
+            PlayerController player = col.gameObject.GetComponent<PlayerController>();
+            player.health -= attackPower;
+            player.UpdateUI();
+            
+            player.OnHit(transform.position); // make into its own event function later.
         }
 
     }
 
-    private void OnCollisionStay2D(Collision2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {

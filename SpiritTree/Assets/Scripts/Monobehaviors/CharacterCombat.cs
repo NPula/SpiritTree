@@ -56,14 +56,14 @@ public class CharacterCombat : MonoBehaviour
         // Play attack animation
 
         // store all enemies hit
-        Debug.Log("Player local scale: " + transform.localScale);
         Vector3 offset = Vector3.right * (1f * transform.localScale.x);
         Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(transform.position + offset, m_attackRange, m_enemyLayerMask);
 
         foreach(Collider2D e in enemiesHit)
         {
-            Debug.Log(e.transform.name + ": " + e.transform.position);
-            Debug.Log("Creating tmp Weapon.");
+            //Debug.Log(e.transform.name + ": " + e.transform.position);
+            //Debug.Log("Creating tmp Weapon.");
+
             // Temporary attack animation
             GameObject weaponInstance = Instantiate(m_weapon, transform.position, Quaternion.identity);
 

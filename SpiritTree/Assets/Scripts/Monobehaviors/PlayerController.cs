@@ -61,29 +61,19 @@ public class PlayerController : MonoBehaviour
 
     public Inventory playerInventory;
 
-
-    #region Old Code
-    //private static CharacterController2D instance;
-    //public static CharacterController2D Instance
-    //{
-    //    get
-    //    {
-    //        if (instance == null) instance = GameObject.FindObjectOfType<CharacterController2D>();
-    //        return instance;
-    //    }
-    //}
-    #endregion
+    private bool hasControl = true;
 
     void Awake()
     {
         Controller = GetComponent<CharacterController2D>();
+
+        #region Events Hidden Here
         // listen to some events. (Leaving this here in case we need events later. Probably will)
         //_controller.onControllerCollidedEvent += onControllerCollider;
         //_controller.onTriggerEnterEvent += onTriggerEnterEvent;
         //_controller.onTriggerExitEvent += onTriggerExitEvent;
-
+        #endregion
     }
-
 
     void Start()
     {
@@ -93,18 +83,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
+        if (hasControl)
+        {
+            GetInputAndSetVelocity();
+            //MovePlayer();
+        }
         MovePlayer();
-
 
         if (Targets.Capacity > 0)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            foreach (Interactable i in Targets)
             {
-                foreach (Interactable i in Targets)
-                {
-                    i.Interact();
-                }
+                i.Interact();
             }
         }
 
@@ -112,18 +102,14 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                Debug.Log("Player Is Attacking");
                 m_playerCombat.Attack();
             }
         }
-
-        // UpdateUI();
 
         if (health <= 0)
         {
             Die();
         }
-
     }
 
     public void UpdateUI()
@@ -144,9 +130,27 @@ public class PlayerController : MonoBehaviour
         inventoryItemImage.sprite = inventroyItemblank;
     }
 
+    public void OnHit(Vector2 enemyPosition)
+    {
+        hasControl = false;
+        float throwForce = 10f;
+        float throwHeight = 2f;
+        //Vector2 directionToThrow = new Vector2((enemyPosition - (Vector2)transform.position).magnitude * throwForce, throwHeight);
+        m_velocity = new Vector2(-(enemyPosition.x - transform.position.x) * throwForce, throwHeight);
+        //Controller.move(directionToThrow * Time.deltaTime);
+
+        StartCoroutine(HasControlTimer());
+    }
+
+    IEnumerator HasControlTimer()
+    {
+        yield return new WaitForSeconds(.3f);
+        hasControl = true;
+    }
+
     public void Die()
     {
-        SceneManager.LoadScene("AndrewSafeSpace");
+        SceneManager.LoadScene("Playground");
     }
 
     private void ChangePlayerDirection(Vector3 input)
@@ -161,7 +165,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(direction, transform.localScale.y, transform.localScale.z);
     }
 
-    public void MovePlayer()
+    private void GetInputAndSetVelocity()
     {
         Vector3 movementInput = new Vector3(Input.GetAxisRaw("Horizontal"), (Input.GetKeyDown(KeyCode.Space) ? 1 : 0), 0);
 
@@ -194,6 +198,14 @@ public class PlayerController : MonoBehaviour
             Controller.ignoreOneWayPlatformsThisFrame = true;
         }
 
+        //Controller.move(m_velocity * Time.deltaTime);
+
+        // grab our current _velocity to use as a base for all calculations
+        //m_velocity = Controller.velocity;
+    }
+
+    private void MovePlayer()
+    {
         Controller.move(m_velocity * Time.deltaTime);
 
         // grab our current _velocity to use as a base for all calculations
