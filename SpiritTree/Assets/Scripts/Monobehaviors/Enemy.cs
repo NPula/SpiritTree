@@ -37,6 +37,10 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         m_controller = GetComponent<CharacterController2D>();
+
+        // we are going to use character controller 2d physics system.
+        // subscribe onTriggerEnterEvent
+        m_controller.onTriggerEnterEvent += AttackPlayer;
     }
 
     // Update is called once per frame
@@ -121,7 +125,20 @@ public class Enemy : MonoBehaviour
             
             player.OnHit(transform.position); // make into its own event function later.
         }
+    }
 
+    // we are going to use character controller 2d physics system.
+    private void AttackPlayer(Collider2D col)
+    {
+        Debug.Log("triggggggggggered");
+        if (col.gameObject.CompareTag("Player"))
+        {
+            PlayerController player = col.gameObject.GetComponent<PlayerController>();
+            player.health -= attackPower;
+            player.UpdateUI();
+
+            player.OnHit(transform.position); // make into its own event function later.
+        }
     }
 
     private void OnTriggerStay2D(Collider2D col)
